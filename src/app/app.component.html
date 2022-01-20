@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1 class="text-center">User List</h1>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Manger</th>
+            <th class="text-center">Developer</th>
+            <th class="text-center">Tester</th>
+            <th class="text-center">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.manager }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+
+            <td>
+              <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(user)">Edit</button>
+
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(user)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p >Total expense for department: <span *ngFor="let user of users">
+        {{user.manger}}
+      </span>
+      <select>  
+        <option *ngFor="let user of newusers" >{{ user.managerlist}}</option>  
+    </select>  
+  </p>
+      
+      <button class="btn btn-success" (click)="showAddUserForm()">Add New User</button>
+
+      <div class="mt-4">
+        <form *ngIf="userForm">
+          <h2>Add New User</h2>
+          <p>Manager: <input type="text" name="manager" [(ngModel)]="newUser.manager" /></p>
+          <p>Developer: <input type="text" name="firstName" [(ngModel)]="newUser.firstName" /></p>
+          <p>Tester: <input type="text" name="lastName" [(ngModel)]="newUser.lastName" /></p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="saveUser(newUser)">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelNewUser()">Cancel</button>
+          </p>
+        </form>
+
+        <form *ngIf="editUserForm">
+          <h2>Edit User Details</h2>
+          <p>Manager: <input type="text" name="manager" [(ngModel)]="editedUser.manager" /></p>
+          <p>Developer: <input type="text" name="firstName" [(ngModel)]="editedUser.firstName" /></p>
+          <p>Tester: <input type="text" name="lastName" [(ngModel)]="editedUser.lastName" /></p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="updateUser()">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button>
+          </p>
+        </form>
+      </div>
+
+      <div>
+        <select  #user (change)='onOptionsSelected(user.value)'>  
+          <option>Choose Website</option>  
+          <option *ngFor="let user of newusers" [value]="user.managerlist">{{ user.managerlist}}</option>  
+      </select>  
+        
+      </div>
+      <table class="table table-bordered table-striped table-hover" >
+        <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">FirstManger</th>
+            <th class="text-center">SecoundManger</th>
+            <th class="text-center">Developer</th>
+            <th class="text-center">Tester</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of newvalue">
+            <td>{{ user.id }}</td>
+            <td>{{ user.managerlist }}</td>
+            <td>{{ user.newmanager }}</td>
+            <td>{{ user.newfirstName }}</td>
+            <td>{{ user.newlastName }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <button class="btn btn-success" (click)="showAddManagerForm()">Add Secound Manager</button>
+      <div>
+        <form *ngIf="managerForm">
+          <h2>Add New User</h2>
+          <p>Managerlist: <select name="managerlist" [(ngModel)]="newUser.managerlist">  
+                <option>Select Manager</option>  
+                <option *ngFor="let user of oldusers">{{ user.manager }}</option>  
+            </select>  
+          </p>
+          <p>Manager: <input type="text" name="newmanager" [(ngModel)]="newUser.newmanager" /></p>
+          <p>Developer: <input type="text" name="newfirstName" [(ngModel)]="newUser.newfirstName" /></p>
+          <p>Tester: <input type="text" name="newlastName" [(ngModel)]="newUser.newlastName" /></p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="saveUserlist(newUser)">Submit</button>
+            <!-- <button type="button" class="btn btn-warning" (click)="cancelNewUser()">Cancel</button> -->
+          </p>
+        </form>
+      </div>
+     
+      <!-- <ejs-treegrid [dataSource]='newusers'> </ejs-treegrid> -->
+    </div>
+  </div>
+</div>
